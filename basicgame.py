@@ -1,42 +1,81 @@
 import pygame, random
 #cd C:\Users\Anton\Desktop\pro
+#cd C:\Users\anton_mc03yx6\Documents\GitHub\hello-world
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
 clock = pygame.time.Clock()
+white = (255, 255, 255)
+black = (0, 0, 0)
+blue = (0, 0, 255)
+red = (255, 0, 0)
 
-done = False
+def this_snake(snake_list):
+	for i in snake_list:
+		pygame.draw.rect(screen, blue, [i[0], i[1], 18, 18])
+	return
 
-x = 10
-y = 10
-vx = 20
-vy = 0
-len = 2
+def gameLoop():
+	done = False
 
-while not done:
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			done = True
-		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_UP:
-				vy = -20
-				vx = 0
-			if event.key == pygame.K_DOWN:
-				vy = 20
-				vx = 0
-			if event.key == pygame.K_LEFT:
-				vx = -20
-				vy = 0
-			if event.key == pygame.K_RIGHT:
-				vx = 20
-				vy = 0
-	xs[len] = xs
-	
-	pygame.display.flip()
+	x = 800/2
+	y = 600/2
+	x_ch = 20
+	y_ch = 0
+
+	snake_list = []
+	length_of_snake = 200
+
+	foodx = random.randint(0, 39) * 20.0
+	foody = random.randint(0, 29) * 20.0
+
+	while not done:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				done = True
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_UP:
+					y_ch = -20
+					x_ch = 0
+				elif event.key == pygame.K_DOWN:
+					y_ch = 20
+					x_ch = 0
+				elif event.key == pygame.K_LEFT:
+					x_ch = -20
+					y_ch = 0
+				elif event.key == pygame.K_RIGHT:
+					x_ch = 20
+					y_ch = 0
 		
-	pygame.draw.rect(screen, (0, 0, 255), pygame.Rect(x+1, y+1, 18, 18))
-	x = x + vx
-	y = y + vy
-	clock.tick(6)
-	
-	
+		if x < 0 or x + 20 > 800 or y < 0 or y + 20 > 600:
+			done = True
+
+		x += x_ch
+		y += y_ch
+
+		snake = []
+		snake.append(x)
+		snake.append(y)
+		snake_list.append(snake)
+
+		if len(snake_list) > length_of_snake:
+			del snake_list[0]
+
+		for j in snake_list[:-1]:
+			if j == snake:
+				done = True
+
+		this_snake(snake_list)
+
+		pygame.display.flip()	
+		screen.fill(black)
+		pygame.draw.rect(screen, red, pygame.Rect(foodx, foody, 18, 18))
+		
+		if x == foodx and y == foody:
+			foodx = random.randint(0, 39) * 20.0
+			foody = random.randint(0, 29) * 20.0
+			length_of_snake += 1
+
+		clock.tick(10)
+
+gameLoop()
