@@ -9,14 +9,24 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 blue = (0, 0, 255)
 red = (255, 0, 0)
+font = pygame.font.Font('freesansbold.ttf', 32) 
 
-def this_snake(snake_list):
-	for i in snake_list:
-		pygame.draw.rect(screen, blue, [i[0], i[1], 18, 18])
+def this_snake(snake_list, game_over):
+	if game_over is False:
+		for i in snake_list:
+			pygame.draw.rect(screen, blue, [i[0], i[1], 18, 18])
+	elif game_over is True:
+		screen.fill(black)
+		text = font.render('Game Over', True, white) 
+		textRect = text.get_rect()  
+		textRect.center = (400, 32)
+		screen.blit(text, textRect) 
 	return
 
 def gameLoop():
 	done = False
+	game_over = False
+	score = 0
 
 	x = 800/2
 	y = 600/2
@@ -24,7 +34,8 @@ def gameLoop():
 	y_ch = 0
 
 	snake_list = []
-	length_of_snake = 200
+	length_of_snake = 3
+	pressed = False
 
 	foodx = random.randint(0, 39) * 20.0
 	foody = random.randint(0, 29) * 20.0
@@ -34,21 +45,29 @@ def gameLoop():
 			if event.type == pygame.QUIT:
 				done = True
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_UP:
+				if (event.key == pygame.K_UP) and pressed == False and y_ch == 0:
 					y_ch = -20
 					x_ch = 0
-				elif event.key == pygame.K_DOWN:
+					pressed = True
+				if (event.key == pygame.K_DOWN) and pressed == False and y_ch == 0:
 					y_ch = 20
 					x_ch = 0
-				elif event.key == pygame.K_LEFT:
+					pressed = True
+				if (event.key == pygame.K_LEFT) and pressed == False and x_ch == 0:
 					x_ch = -20
 					y_ch = 0
-				elif event.key == pygame.K_RIGHT:
+					pressed = True
+				if (event.key == pygame.K_RIGHT) and pressed == False and x_ch == 0:
 					x_ch = 20
 					y_ch = 0
+					pressed = True
+				if (event.key == pygame.K_r):
+					game_over = False
+					screen.fill(black) 
+					gameLoop()
 		
 		if x < 0 or x + 20 > 800 or y < 0 or y + 20 > 600:
-			done = True
+			game_over = True
 
 		x += x_ch
 		y += y_ch
@@ -63,9 +82,9 @@ def gameLoop():
 
 		for j in snake_list[:-1]:
 			if j == snake:
-				done = True
+				game_over = True
 
-		this_snake(snake_list)
+		this_snake(snake_list, game_over)
 
 		pygame.display.flip()	
 		screen.fill(black)
@@ -75,7 +94,15 @@ def gameLoop():
 			foodx = random.randint(0, 39) * 20.0
 			foody = random.randint(0, 29) * 20.0
 			length_of_snake += 1
+			score += 1
+			print(score)
 
+		text = font.render('Score: ' + str(score), True, white) 
+		textRect = text.get_rect()  
+		textRect.center = (400, 32)
+		screen.blit(text, textRect) 
+
+		pressed = False
 		clock.tick(10)
 
 gameLoop()
