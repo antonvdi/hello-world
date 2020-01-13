@@ -1,6 +1,7 @@
 import pygame, random
 #cd C:\Users\Anton\Desktop\pro
 #cd C:\Users\anton_mc03yx6\Documents\GitHub\hello-world
+#cd C:\Users\Anton\Documents\GitHub\hello-world
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -10,7 +11,7 @@ black = (0, 0, 0)
 blue = (0, 0, 255)
 red = (255, 0, 0)
 
-def this_snake(snake_list):
+def draw_snake(snake_list):
 	for i in snake_list:
 		pygame.draw.rect(screen, blue, [i[0], i[1], 18, 18])
 	return
@@ -24,7 +25,8 @@ def gameLoop():
 	y_ch = 0
 
 	snake_list = []
-	length_of_snake = 200
+	length_of_snake = 1
+	score = 0
 
 	foodx = random.randint(0, 39) * 20.0
 	foody = random.randint(0, 29) * 20.0
@@ -65,16 +67,18 @@ def gameLoop():
 			if j == snake:
 				done = True
 
-		this_snake(snake_list)
+		draw_snake(snake_list)
 
 		pygame.display.flip()	
 		screen.fill(black)
+
 		pygame.draw.rect(screen, red, pygame.Rect(foodx, foody, 18, 18))
-		
 		if x == foodx and y == foody:
 			foodx = random.randint(0, 39) * 20.0
 			foody = random.randint(0, 29) * 20.0
 			length_of_snake += 1
+			score += 1
+			print(score)
 
 		clock.tick(10)
 
