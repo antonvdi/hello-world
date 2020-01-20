@@ -44,10 +44,12 @@ class ball:
 			ball.xspeed *= -1
 			player1.score += 1
 			print(str(player1.name) + ": " + str(player1.score))
+			serve(ball)
 		if (ball.xpos + ball.bwidth >= width):
 			ball.xspeed *= -1
 			player2.score += 1
 			print(str(player2.name) + ": " + str(player2.score))
+			serve(ball)
 		if (ball.xpos + ball.bwidth >= player1.xpos) and ((ball.ypos + ball.bheight >= player1.ypos) and (ball.ypos <= player1.ypos + player1.pheight)):
 			ball.xspeed *= -1
 		if (ball.xpos <= player2.xpos + player2.pwidth) and ((ball.ypos + ball.bheight >= player2.ypos) and (ball.ypos <= player2.ypos + player2.pheight)):
@@ -61,6 +63,7 @@ def gameLoop():
 	xspeed = random.uniform(0.5, 1)
 	yspeed = 1-xspeed
 	ball1 = ball(width/2, height/2, 10, 10, xspeed, yspeed)
+	serve(ball1)
 	done = False
 	while not done:
 		for event in pygame.event.get():
@@ -90,8 +93,10 @@ def gameLoop():
 		clock.tick(1000)
 		pygame.display.flip()
 		
-def serve():
-	pass
-
+def serve(ball1):
+	xspeed = random.uniform(0.5, 1)
+	yspeed = 1-xspeed
+	ball1 = ball(width/2, height/2, 10, 10, xspeed, yspeed)
+	return (ball1)
 
 gameLoop()
