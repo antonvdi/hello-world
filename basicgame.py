@@ -53,19 +53,19 @@ def gameLoop():
 			if event.type == pygame.QUIT:
 				done = True
 			if event.type == pygame.KEYDOWN:
-				if (event.key == pygame.K_UP) and pressed == False and y_ch == 0:
+				if (event.key == pygame.K_UP or event.key == pygame.K_w) and pressed == False and y_ch == 0:
 					y_ch = -20
 					x_ch = 0
 					pressed = True
-				if (event.key == pygame.K_DOWN) and pressed == False and y_ch == 0:
+				if (event.key == pygame.K_DOWN or event.key == pygame.K_s) and pressed == False and y_ch == 0:
 					y_ch = 20
 					x_ch = 0
 					pressed = True
-				if (event.key == pygame.K_LEFT) and pressed == False and x_ch == 0:
+				if (event.key == pygame.K_LEFT or event.key == pygame.K_a) and pressed == False and x_ch == 0:
 					x_ch = -20
 					y_ch = 0
 					pressed = True
-				if (event.key == pygame.K_RIGHT) and pressed == False and x_ch == 0:
+				if (event.key == pygame.K_RIGHT or event.key == pygame.K_d) and pressed == False and x_ch == 0:
 					x_ch = 20
 					y_ch = 0
 					pressed = True
