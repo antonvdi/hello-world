@@ -38,6 +38,7 @@ class ball:
 		ball.bheight = bheight
 		ball.xspeed = xspeed
 		ball.yspeed = yspeed
+
 	def updateball(ball, player1, player2):
 		ball.xpos += ball.xspeed
 		ball.ypos += ball.yspeed
@@ -65,8 +66,8 @@ yspeed = 1-xspeed
 ball1 = ball(width/2, height/2, 10, 10, xspeed, yspeed)
 
 def gameLoop():
-	player1 = player("Player 1", width-20, height/2, 10, 50, 0, 0)
-	player2 = player("Player 2", 20, height/2, 10, 50, 0, 0)
+	player1 = player("Player 1", width-30, height/2, 10, 100, 0, 0)
+	player2 = player("Player 2", 20, height/2, 10, 100, 0, 0)
 	serve(ball1)
 	done = False
 	while not done:
