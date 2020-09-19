@@ -1,7 +1,4 @@
 import pygame, random
-#cd C:\Users\Anton\Desktop\pro
-#cd C:\Users\anton_mc03yx6\Documents\GitHub\hello-world
-#cd C:\Users\Anton\Documents\GitHub\hello-world
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
