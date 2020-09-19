@@ -1,4 +1,1 @@
-# hello-world
-This is my first repository using Github. Still learning. 
-
-I'm a student learning Git for educational and personal use. 
+This repository contains a couple small games, made in 2019-2020, i.e. snake and pong. 
